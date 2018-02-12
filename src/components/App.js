@@ -1,7 +1,6 @@
 import React from 'react';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
-import DATA from '../data';
 import style from '../style';
 
 class App extends React.Component {
@@ -16,7 +15,7 @@ class App extends React.Component {
     return (
       <div style={ style.App }>
         <h2>Comments:</h2>
-        <CommentList data={ DATA }/>
+        <CommentList data={ this.state.data }/>
         <CommentForm />
       </div>
     );

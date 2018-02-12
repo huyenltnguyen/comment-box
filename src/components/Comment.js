@@ -1,6 +1,6 @@
 import React from 'react';
 import marked from 'marked';
-import style from 'style';
+import style from '../style';
 
 class Comment extends React.Component {
   rawMarkup = () => {
