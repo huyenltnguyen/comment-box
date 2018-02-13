@@ -23,7 +23,6 @@ class App extends React.Component {
     let newComments = comments.concat([comment]);
     this.setState({ data: newComments });
     axios.post(this.props.url, comment)
-      .then((res) => this.setState({ data: res }))
       .catch((err) => {
         console.log(err);
         this.setState({ data: comments });
