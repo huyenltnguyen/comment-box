@@ -20,7 +20,13 @@ class CommentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`${this.state.author} said “${this.state.text}”`);
+    let author = this.state.author.trim();
+    let text = this.state.text.trim();
+    if (!author || !text) {
+      return;
+    }
+    this.props.onCommentSubmit({ author, text });
+    this.setState({ author: '', text: '' });
   }
 
   render() {
