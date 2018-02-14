@@ -26,6 +26,7 @@ router.get('/', (req, res) => res.json({ message: 'API Initialized' }));
 app.use('/api', router);
 
 router.route('/comments')
+  // INDEX ROUTE
   .get((req, res) => {
     Comment.find({}, (err, comments) => {
       if (err) {
@@ -35,17 +36,37 @@ router.route('/comments')
       }
     });
   })
+  // POST ROUTE
   .post((req, res) => {
     let comment = new Comment();
     comment.author = req.body.author;
     comment.text = req.body.text;
 
     comment.save((err, newComment) => {
+      err ? res.send(err) : res.json({ message: 'Comment successfully added!' });
+    });
+  });
+
+router.route('/comments/:comment_id')
+  // UPDATE ROUTE
+  .put((req, res) => {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
       if (err) {
         res.send(err);
       } else {
-        res.json({ message: 'Comment successfully added!' });
+        req.body.author ? foundComment.author = req.body.author : null;
+        req.body.text ? foundComment.text = req.body.text : null;
+
+        foundComment.save((err) => {
+          err ? res.send(err) : res.json({ message: 'Comment successfully updated!' });
+        });
       }
+    });
+  })
+  // DELETE ROUTE
+  .delete((req, res) => {
+    Comment.findByIdAndRemove(req.params.comment_id, (err, foundComment) => {
+      err ? res.send(err) : res.json({ message: 'Comment successfully deleted!' });
     });
   })
 

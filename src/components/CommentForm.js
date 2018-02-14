@@ -15,7 +15,7 @@ class CommentForm extends React.Component {
   }
 
   handleTextChange = (e) => {
-    this.setState({ author: e.target.value });
+    this.setState({ text: e.target.value });
   }
 
   handleSubmit = (e) => {

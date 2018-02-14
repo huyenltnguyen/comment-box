@@ -29,6 +29,17 @@ class App extends React.Component {
       });
   }
 
+  handleCommentDelete = (id) => {
+    axios.delete(`${this.props.url}/${id}`)
+      .then((res) => console.log('Comment deleted'))
+      .catch((err) => console.error(err));
+  }
+
+  handleCommentUpdate = (id, updatedComment) => {
+    axios.put(`${this.props.url}/${id}`, updatedComment)
+    .catch((err) => console.log(err))
+  }
+
   componentDidMount() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
@@ -38,7 +49,10 @@ class App extends React.Component {
     return (
       <div style={ style.App }>
         <h2>Comments:</h2>
-        <CommentList data={ this.state.data }/>
+        <CommentList
+          data={ this.state.data }
+          onCommentDelete={ this.handleCommentDelete }
+          onCommentUpdate={ this.handleCommentUpdate } />
         <CommentForm onCommentSubmit={ this.handleCommentSubmit } />
       </div>
     );
